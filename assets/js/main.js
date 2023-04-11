@@ -37,10 +37,20 @@ function convertPokemonToLi(pokemon) {
                 <div class="card-body">
                     <h5 class="card-title">Informações: </h5>
                     <hr>
-                </div>
-                <div class ="infos">
-                    <p>Altura: ${pokemon.height / 10} m </p>
-                </div>
+                    <div class ="infos">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Altura: ${pokemon.height / 10} m</li>
+                            <li class="list-group-item">Peso: ${pokemon.weight / 10} kg</li>
+                        </ul>    
+                    </div>
+                    <hr>
+                    <h5 class="card-title">Base Stats: </h5>
+                    <div class ="infos">
+                        <ul class="list-group list-group-flush">
+                            ${pokemon.stats.map((stat) => `<li class="list-group-item">${replaceHyphenAndUppercaseFirstLetter(stat.name)}: ${stat.number}</li>`).join('')}
+                        </ul>  
+                    </div>  
+                </div>    
             </div>
           </div>
         </div>
@@ -71,3 +81,11 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit)
     }
 })
+
+function uppercaseFirstLetter(str) {
+    return str[0].toUpperCase() + str.substring(1);
+}
+
+function replaceHyphenAndUppercaseFirstLetter(str) {
+    return uppercaseFirstLetter(str).replace('-', ' ');
+}
