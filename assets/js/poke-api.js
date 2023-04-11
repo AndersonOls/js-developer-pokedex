@@ -14,8 +14,25 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
 
     pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
 
+    pokemon.height = pokeDetail.height;
+    pokemon.weight = pokeDetail.weight;
+
+    const stats = pokeDetail.stats.map((stats) => {
+        return {
+            name: stats.stat.name,
+            number: stats.base_stat,
+        };
+    });
+
+    pokemon.stats = stats;
+
+    console.log(pokemon)
+
     return pokemon
+
 }
+
+
 
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
@@ -26,10 +43,12 @@ pokeApi.getPokemonDetail = (pokemon) => {
 pokeApi.getPokemons = (offset = 0, limit = 5) => {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
 
+    console.log(url)
     return fetch(url)
         .then((response) => response.json())
         .then((jsonBody) => jsonBody.results)
         .then((pokemons) => pokemons.map(pokeApi.getPokemonDetail))
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
+
 }

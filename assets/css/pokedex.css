@@ -146,6 +146,14 @@
     border-radius: 1rem;
 }
 
+.img-modal{
+    height: 200px;
+    width: 200px;
+}
+.text{
+    color: #fff;
+}
+
 @media screen and (min-width: 380px) {
     .pokemons {
         grid-template-columns: 1fr 1fr;
